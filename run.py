@@ -31,3 +31,21 @@ if __name__ == '__main__':
             print()
             chances -= 1
 
+            try:
+                guess = str(input('Enter a letter to guess: '))
+            except:
+                print('Enter only a letter')
+                continue
+
+            if not guess.isalpha():
+                print('Enter only a Letter')
+                continue
+            elif len(guess) > 1:
+                print('Enter only single letter')
+            elif guess in letterGuessed:
+                print('You have already guessed that')
+                continue
+
+        
+                  
+
