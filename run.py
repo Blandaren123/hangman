@@ -16,8 +16,10 @@ word = random.choice(someWords)
 if __name__ == '__main__':
     """by using an import block,
     we can allow or prevent certain parts of the code from being run"""
-    print('Guess Car brands')
-    
+    print('Hello and Welcome to hang man Game')
+    print('The Computer will Choose a random Word and you have to guess')
+    print('Hint! Car brands')
+    print('==================================')
     for i in word:
         print('_', end =' ')
     print()
@@ -28,7 +30,7 @@ if __name__ == '__main__':
     correct = 0
     flag = 0
     try:
-        while (chances !=0) and flag == 0:
+        while (chances != 0) and flag == 0:
             print()
             chances -= 1
 
@@ -39,7 +41,7 @@ if __name__ == '__main__':
                 continue
 
             if not guess.isalpha():
-                print('Enter only a Letter')
+                print('Enter only a letter')
                 continue
             elif len(guess) > 1:
                 print('Enter only single letter')
@@ -52,7 +54,8 @@ if __name__ == '__main__':
                 for _ in range(k):
                     letterGuessed += guess
             for char in word:
-                if char in letterGuessed and (Counter(letterGuessed) != Counter(word)):
+                if char in letterGuessed and (Counter(letterGuessed) 
+                != Counter(word)):
                     print(char, end = ' ')
                     correct += 1
                 elif (Counter(letterGuessed) == Counter(word)):
@@ -72,4 +75,4 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print()
         print('Bye! Try again.')
-        exit()       
+        exit()
