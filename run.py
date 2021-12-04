@@ -15,6 +15,16 @@ word = random.choice(someWords)
 
 if __name__ == '__main__':
     """by using an import block, we can allow or prevent certain parts of the code from being run"""
+    print('Guess Car brands')
+    
     for i in word:
         print('_', end =' ')
+    print()
 
+    playing = True
+    letterGuessed = ''
+    chances = len(word) + 2
+    correct = 0
+    flag = 0
+    try:
+        
