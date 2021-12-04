@@ -46,6 +46,8 @@ if __name__ == '__main__':
                 print('You have already guessed that')
                 continue
 
-        
-                  
-
+            if guess in word:
+                k = word.count(guess)
+                for _ in range(k):
+                letterGuessed += guess
+            for 
