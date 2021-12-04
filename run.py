@@ -1,78 +1,104 @@
-import random
-""" import random module generator
-"""
-from collections import Counter
-""" Counters store elements as dictionary keys, and their counts are stored
-as dictionary values
-"""
+import random, time
+fruits = ['pear', 'mango', 'apple', 'banana', 'apricot', 'pineapple','cantaloupe', 'grapefruit','jackfruit','papaya']
+superHeroes = ['hawkeye', 'robin', 'Galactus', 'thor', 'mystique', 'superman', 'deadpool', 'vision', 'sandman', 'aquaman']
+userGuesslist = []
+userGuesses = []
+playGame = True
+category = ""
+continueGame = "Y"
 
-someWords = '''audi jeep cadillac chevrolet chrysler dodge ford kia
-lexus nissan porche subaru skoda volvo'''
+name = input("Enter your name:")
+print("Hello", name.capitalize(), "let's start playing Hangman!")
+time.sleep(3)
+print("The objective of the game is to guess the secret word chosen by the computer.")
+time.sleep(3)
+print("You can guess only one letter at a time. Don't forget to press 'enter key' after each guess.")
+time.sleep(3)
+print("Let the fun begin!")
+time.sleep(3)
 
-someWords = someWords.split(' ')
-word = random.choice(someWords)
-""" let randomness choose word from the someWords list"""
+while True:
+    #Choosing the Secret word
+    while True:
+        if category.upper() == 'S':
+            secretWord = random.choice(superHeroes)
+            break
+        elif category.upper() == 'F':
+            secretWord = random.choice(fruits)
+            break
+        else:
+            category = input("Please select a valid categary: F for Fruits / S for Super-Heroes; X to exit")
 
-if __name__ == '__main__':
-    """by using an import block,
-    we can allow or prevent certain parts of the code from being run"""
-    print('Hello and Welcome to hang man Game')
-    print('The Computer will Choose a random Word and you have to guess')
-    print('Hint! Car brands')
-    print('==================================')
-    for i in word:
-        print('_', end =' ')
-    print()
+        if category.upper() == 'X':
+            print("Bye. See you next time!")
+            playGame = False
+            break
 
-    playing = True
-    letterGuessed = ''
-    chances = len(word) + 2
-    correct = 0
-    flag = 0
-    try:
-        while (chances != 0) and flag == 0:
-            print()
-            chances -= 1
+    if playGame:
+        secretWordList = list(secretWord)
+        attempts = (len(secretWord) + 2)
 
-            try:
-                guess = str(input('Enter a letter to guess: '))
-            except:
-                print('Enter only a letter')
-                continue
+        #Utility function to print User Guess List
+        def printGuessedLetter():
+            print("Your Secret word is: " + ''.join(userGuesslist))
 
-            if not guess.isalpha():
-                print('Enter only a letter')
-                continue
-            elif len(guess) > 1:
-                print('Enter only single letter')
-            elif guess in letterGuessed:
-                print('You have already guessed that')
-                continue
 
-            if guess in word:
-                k = word.count(guess)
-                for _ in range(k):
-                    letterGuessed += guess
-            for char in word:
-                if char in letterGuessed and (Counter(letterGuessed) 
-                != Counter(word)):
-                    print(char, end = ' ')
-                    correct += 1
-                elif (Counter(letterGuessed) == Counter(word)):
+        #Adding blank lines to userGuesslist to create the blank secret word
+        for n in secretWordList:
+            userGuesslist.append('_')
+        printGuessedLetter()
 
-                    print("The word is: ", end=' ')
-                    print(word)
-                    flag = 1
-                    print('You Won!!')
-                    break
-                    break
+        print("The number of allowed guesses for this word is:", attempts)
+
+
+        #starting the game
+        while True:
+
+            print("Guess a letter:")
+            letter = input()
+
+            if letter in userGuesses:
+                print("You already guessed this letter, try something else.")
+
+            else:
+                attempts -= 1
+                userGuesses.append(letter)
+                if letter in secretWordList:
+                    print("Nice guess!")
+                    if attempts > 0:
+                        print("You have ", attempts, 'guess left!')
+                    for i in range(len(secretWordList)):
+                        if letter == secretWordList[i]:
+                            letterIndex = i
+                            userGuesslist[letterIndex] = letter.upper()
+                    printGuessedLetter()
+
                 else:
-                    print('_', end = ' ')
-        if chances <= 0 and (Counter(letterGuessed) != Counter(word)):
-            print()
-            print('You loose!! Try Again.')
-            print('The word was {}'.format(word))          
-    except KeyboardInterrupt:
-        print()
-        print('Bye! Try again.')
-        exit()
+                    print("Oops! Try again.")
+                    if attempts > 0:
+                        print("You have ", attempts, 'guess left!')
+                    printGuessedLetter()
+
+
+            #Win/loss logic for the game
+            joinedList = ''.join(userGuesslist)
+            if joinedList.upper() == secretWord.upper():
+                print("Yay! you won.")
+                break
+            elif attempts == 0:
+                print("Too many Guesses!, Sorry better luck next time.")
+                print("The secret word was: "+ secretWord.upper())
+                break
+
+        #Play again logic for the game
+        continueGame = input("Do you want to play again? Y to continue, any other key to quit")
+        if continueGame.upper() == 'Y':
+            category = input("Please select a valid categary: F for Fruits / S for Super-Heroes")
+            userGuesslist = []
+            userGuesses = []
+            playGame = True
+        else:
+            print("Thank You for playing. See you next time!")
+            break
+    else:
+        break
