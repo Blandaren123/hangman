@@ -2,19 +2,20 @@ import random
 """ import random module generator
 """
 from collections import Counter
-""" Counters store elements as dictionary keys, and their counts are stored as dictionary values
+""" Counters store elements as dictionary keys, and their counts are stored
+as dictionary values
 """
 
 someWords = '''audi jeep cadillac chevrolet chrysler dodge ford kia
-lexus nissan porche subaru skoda volvo''' 
-""" add som car brands to the list """
+lexus nissan porche subaru skoda volvo'''
 
-someWords = someWords.split('')
+someWords = someWords.split(' ')
 word = random.choice(someWords)
 """ let randomness choose word from the someWords list"""
 
 if __name__ == '__main__':
-    """by using an import block, we can allow or prevent certain parts of the code from being run"""
+    """by using an import block,
+    we can allow or prevent certain parts of the code from being run"""
     print('Guess Car brands')
     
     for i in word:
@@ -49,12 +50,12 @@ if __name__ == '__main__':
             if guess in word:
                 k = word.count(guess)
                 for _ in range(k):
-                letterGuessed += guess
+                    letterGuessed += guess
             for char in word:
                 if char in letterGuessed and (Counter(letterGuessed) != Counter(word)):
                     print(char, end = ' ')
                     correct += 1
-                elif Counter(letterGuessed) == Counter(word)):
+                elif (Counter(letterGuessed) == Counter(word)):
 
                     print("The word is: ", end=' ')
                     print(word)
@@ -64,5 +65,11 @@ if __name__ == '__main__':
                     break
                 else:
                     print('_', end = ' ')
-        if chances <            
-            
+        if chances <= 0 and (Counter(letterGuessed) != Counter(word)):
+            print()
+            print('You loose!! Try Again.')
+            print('The word was {}'.format(word))          
+    except KeyboardInterrupt:
+        print()
+        print('Bye! Try again.')
+        exit()       
