@@ -13,5 +13,8 @@ someWords = someWords.split('')
 word = random.choice(someWords)
 """ let randomness choose word from the someWords list"""
 
-if __name__
+if __name__ == '__main__':
+    """by using an import block, we can allow or prevent certain parts of the code from being run"""
+    for i in word:
+        print('_', end =' ')
 
