@@ -27,4 +27,7 @@ if __name__ == '__main__':
     correct = 0
     flag = 0
     try:
-        
+        while (chances !=0) and flag == 0:
+            print()
+            chances -= 1
+
